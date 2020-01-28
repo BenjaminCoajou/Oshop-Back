@@ -33,7 +33,7 @@ class CoreController {
         // => la variable $assetsBaseUri existe désormais, et sa valeur est $_SERVER['BASE_URI'] . '/assets/'
         // => la variable $baseUri existe désormais, et sa valeur est $_SERVER['BASE_URI']
         // => il en va de même pour chaque élément du tableau
-
+       // dump($viewVars);
         // $viewVars est disponible dans chaque fichier de vue
         require_once __DIR__.'/../views/layout/header.tpl.php';
         require_once __DIR__.'/../views/'.$viewName.'.tpl.php';
