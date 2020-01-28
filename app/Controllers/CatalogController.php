@@ -7,10 +7,8 @@ use App\Models\Product;
 
 class CatalogController extends CoreController{
 
-    public function category($params)
+    public function category($categoryId)
     {
-        $categoryId = $params['categoryId'];
-
         $categoryModel = new Category();
         $category = $categoryModel->find($categoryId);
         $this->show('catalog/category_add', ["category" => $category]);
