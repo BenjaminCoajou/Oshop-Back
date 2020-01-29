@@ -53,32 +53,62 @@ $router->map(
 
 $router->map(
     'GET',
-    '/catalog/list',
+    '/category/list/',
     [
         'method' => 'list',
-        'controller' => '\App\Controllers\CatalogController'
+        'controller' => '\App\Controllers\CategoryController'
     ],
-    'catalog-list'
+    'category-list'
 );
 
 $router->map(
     'GET',
-    '/catalog/category/[i:categoryId]',
+    '/category/add/',
     [
-        'method' => 'category',
-        'controller' => '\App\Controllers\CatalogController'
+        'method' => 'add',
+        'controller' => '\App\Controllers\CategoryController'
     ],
-    'catalog-categoryAdd'
+    'category-add'
 );
 
 $router->map(
     'GET',
-    '/catalog/product',
+    '/category/update/[i:categoryId]',
     [
-        'method' => 'product',
-        'controller' => '\App\Controllers\CatalogController'
+        'method' => 'update',
+        'controller' => '\App\Controllers\CategoryController'
     ],
-    'catalog-product'
+    'category-update'
+);
+
+$router->map(
+    'GET',
+    '/product/add/',
+    [
+        'method' => 'add',
+        'controller' => '\App\Controllers\ProductController'
+    ],
+    'product-add'
+);
+
+$router->map(
+    'GET',
+    '/product/list/',
+    [
+        'method' => 'list',
+        'controller' => '\App\Controllers\ProductController'
+    ],
+    'product-list'
+);
+
+$router->map(
+    'GET',
+    '/product/update/[i:productId]',
+    [
+        'method' => 'update',
+        'controller' => '\App\Controllers\ProductController'
+    ],
+    'product-update'
 );
 
 

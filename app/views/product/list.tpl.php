@@ -1,23 +1,25 @@
-    <div class="container my-4">
-        <a href="category_add.html" class="btn btn-success float-right">Ajouter</a>
-        <h2>Liste des catégories</h2>
+<div class="container my-4">
+        <a href="<?= $router->generate('product-add') ?>" class="btn btn-success float-right">Ajouter</a>
+        <h2>Liste des produits</h2>
         <table class="table table-hover mt-4">
             <thead>
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Prix</th>
+                    <th scope="col">Description</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($viewVars['product'] as $product) : ?>
+                <?php foreach($productList as $product) : ?>
                 <tr>
                     <th scope="row"><?= $product->getId();?></th>
                     <td><?= $product->getName();?></td>
-                    <td><?= $product->getPrice();?></td>
+                    <td><?= $product->getPrice();?>€</td>
+                    <td><?= substr($product->getDescription(), 0, 50);?>...</td>
                     <td class="text-right">
-                        <a href="" class="btn btn-sm btn-warning">
+                        <a href="<?= $router->generate('product-update', ['productId' => $product->getId()]) ?>" class="btn btn-sm btn-warning">
                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                         </a>
                         <!-- Example single danger button -->

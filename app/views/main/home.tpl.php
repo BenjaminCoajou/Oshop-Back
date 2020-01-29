@@ -41,7 +41,7 @@
                                 <?php endfor ?>
                             </tbody>
                         </table>
-                        <a href="<?= $router->generate('catalog-list') ?>" class="btn btn-block btn-success">Voir plus</a>
+                        <a href="<?= $router->generate('category-list') ?>" class="btn btn-block btn-success">Voir plus</a>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                                 <?php endfor ?>
                             </tbody>
                         </table>
-                        <a href= <?= $router->generate('catalog-product') ?> class="btn btn-block btn-success">Voir plus</a>
+                        <a href= <?= $router->generate('product-list') ?> class="btn btn-block btn-success">Voir plus</a>
                     </div>
                 </div>
             </div>

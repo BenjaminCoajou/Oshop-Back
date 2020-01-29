@@ -87,7 +87,7 @@ class Category extends CoreModel {
      * @param int $categoryId ID de la catégorie
      * @return Category
      */
-    public function find($categoryId)
+    static public function find($categoryId)
     {
         // se connecter à la BDD
         $pdo = Database::getPDO();
@@ -99,7 +99,7 @@ class Category extends CoreModel {
         $pdoStatement = $pdo->query($sql);
 
         // un seul résultat => fetchObject
-        $category = $pdoStatement->fetchObject('App\Models\Category');
+        $category = $pdoStatement->fetchObject(self::class);
 
         // retourner le résultat
         return $category;
@@ -110,13 +110,14 @@ class Category extends CoreModel {
      * 
      * @return Category[]
      */
-    public function findAll()
+    static public function findAll()
     {
         $pdo = Database::getPDO();
         $sql = 'SELECT * FROM `category`';
         $pdoStatement = $pdo->query($sql);
-        $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
-        
+        $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
+        // self::class renvoie le nom complet (namespace compris) de la classe courante
+        // self est une référence à la classe courante comme $this est une référence à l'objet courant
         return $results;
     }
 
@@ -125,7 +126,7 @@ class Category extends CoreModel {
      * 
      * @return Category[]
      */
-    public function findAllHomepage()
+    static public function findAllHomepage()
     {
         $pdo = Database::getPDO();
         $sql = '
@@ -135,7 +136,7 @@ class Category extends CoreModel {
             ORDER BY home_order ASC
         ';
         $pdoStatement = $pdo->query($sql);
-        $categories = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
+        $categories = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
         
         return $categories;
     }
