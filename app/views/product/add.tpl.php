@@ -5,21 +5,27 @@
         <form action="" method="POST" class="mt-5">
             <div class="form-group">
                 <label for="name">Nom</label>
-                <input type="text" class="form-control" id="name" placeholder="Nom du produit">
+                <input type="text" class="form-control" id="name" name ="name" placeholder="Nom du produit">
             </div>
             <div class="form-group">
                 <label for="subtitle">Prix</label>
-                <input type="text" class="form-control" id="subtitle" placeholder="Prix" aria-describedby="subtitleHelpBlock">
-                <small id="subtitleHelpBlock" class="form-text text-muted">
-                    Sera affiché sur la page d'accueil comme bouton devant l'image
-                </small>
+                <input type="text" class="form-control" id="price" name ="price" placeholder="Prix du produit" aria-describedby="priceHelpBlock">
             </div>
             <div class="form-group">
-                <label for="picture">Image</label>
-                <input type="text" class="form-control" id="picture" placeholder="image jpg, gif, svg, png" aria-describedby="pictureHelpBlock">
-                <small id="pictureHelpBlock" class="form-text text-muted">
-                    URL relative d'une image (jpg, gif, svg ou png) fournie sur <a href="https://benoclock.github.io/S06-images/" target="_blank">cette page</a>
-                </small>
+                <label for="description">Description</label>
+                <input type="text" class="form-control" id="description" name="description" placeholder="Description du produit" aria-describedby="descriptionHelpBlock">
+            </div>
+            <div class="form-group">
+                <label for="brandId">Identifiant Marque</label>
+                <input type="text" class="form-control" id="brandId" name ="brand_id" placeholder="Identifiant de la marque du produit">
+            </div>
+            <div class="form-group">
+                <label for="categoryId">Identifiant Categorie</label>
+                <input type="text" class="form-control" id="categoryId" name ="category_id" placeholder="Identifiant de la categorie du produit">
+            </div>
+            <div class="form-group">
+                <label for="typeId">Identifiant Type</label>
+                <input type="text" class="form-control" id="typeId" name ="type_id" placeholder="Identifiant du type du produit">
             </div>
             <button type="submit" class="btn btn-primary btn-block mt-5">Valider</button>
         </form>

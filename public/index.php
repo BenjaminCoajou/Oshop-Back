@@ -72,6 +72,16 @@ $router->map(
 );
 
 $router->map(
+    'POST',
+    '/category/add/',
+    [
+        'method' => 'addPost',
+        'controller' => '\App\Controllers\CategoryController'
+    ],
+    'category-add-post'
+);
+
+$router->map(
     'GET',
     '/category/update/[i:categoryId]',
     [
@@ -81,6 +91,7 @@ $router->map(
     'category-update'
 );
 
+// Product ------------------
 $router->map(
     'GET',
     '/product/add/',
@@ -89,6 +100,16 @@ $router->map(
         'controller' => '\App\Controllers\ProductController'
     ],
     'product-add'
+);
+
+$router->map(
+    'POST',
+    '/product/add/',
+    [
+        'method' => 'addPost',
+        'controller' => '\App\Controllers\ProductController'
+    ],
+    'product-add-post'
 );
 
 $router->map(
