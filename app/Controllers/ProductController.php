@@ -4,18 +4,19 @@ namespace App\Controllers;
 
 use App\Models\Product;
 
-class ProductController extends CoreController{
+class ProductController extends CoreController
+{
 
     public function list()
     {
-        $productList = Product::findAll();        
-        
+        $productList = Product::findAll();
+
         // On appelle la méthode show() de l'objet courant
         // En argument, on fournit le fichier de Vue
         // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
         $this->show('/product/list', ['productList' => $productList]);
     }
-    
+
     public function add()
     {
         $this->show('product/add');
@@ -29,27 +30,47 @@ class ProductController extends CoreController{
 
     public function addPost()
     {
-        $name = filter_input(INPUT_POST, 'name');
-        $price = filter_input(INPUT_POST, 'price');
-        $description = filter_input(INPUT_POST, 'description');
-        $brand_id = filter_input(INPUT_POST, 'brand_id');
-        $category_id = filter_input(INPUT_POST, 'category_id');
-        $type_id = filter_input(INPUT_POST, 'type_id');
+        //beurk, mais très bien pour l'instant
+        global $router;
 
+        // récupération des valeurs saisies en POST
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+        // FILTER_SANITIZE_MAGIC_QUOTES => gérer les apostrophes 
+        $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_MAGIC_QUOTES);
+        $picture = filter_input(INPUT_POST, 'picture');
+        $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
+        $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+        $brandId = filter_input(INPUT_POST, 'brandId', FILTER_VALIDATE_INT);
+        $categoryId = filter_input(INPUT_POST, 'categoryId', FILTER_VALIDATE_INT);
+        $typeId = filter_input(INPUT_POST, 'typeId', FILTER_VALIDATE_INT);
 
+        // création du model
+        $product = new Product();
+        // hydrater le modèle : lui donner les valeurs de ses propriétés
+        $product->setName($name);
+        $product->setDescription($description);
+        $product->setPicture($picture);
+        $product->setPrice($price);
+        $product->setStatus($status);
+        $product->setBrandId($brandId);
+        $product->setCategoryId($categoryId);
+        $product->setTypeId($typeId);
+        
+        // déclencher l'enregistrement en bdd
+        // on récupère le succes de l'opération
+        $success = $product->insert();
 
-        $post = new Product();
-        $post->setName($name);
-        $post->setPrice($price);
-        $post->setDescription($description);
-        $post->setBrandId($brand_id);
-        $post->setCategoryId($category_id);
-        $post->setTypeId($type_id);
-
-        $post->insert();
-        header('Location: http://localhost/S06/s06-oshop-BenjaminCoajou/public/product/list/');
-        exit;
-
+        if ($success) {
+            // si la requête d'insert a fonctionné
+            // redirection vers la page de liste
+            $redirect = $router->generate('product-list');
+        } else {
+            // si la requête d'insert n'a pas fonctionné
+            // redirection vers la page d'ajout => on réaffiche le formulaire (avec potentiellement un message d'erreur)
+            $redirect = $router->generate('product-add');
+        }
+        
+        header("Location: " . $redirect);
+        exit(); // ici exit facultatif, rien ne sera de toute façon exécuté plus loin
     }
-
 }

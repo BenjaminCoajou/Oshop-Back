@@ -78,7 +78,7 @@ $router->map(
         'method' => 'addPost',
         'controller' => '\App\Controllers\CategoryController'
     ],
-    'category-add-post'
+    'category-addpost'
 );
 
 $router->map(
@@ -109,7 +109,7 @@ $router->map(
         'method' => 'addPost',
         'controller' => '\App\Controllers\ProductController'
     ],
-    'product-add-post'
+    'product-addpost'
 );
 
 $router->map(

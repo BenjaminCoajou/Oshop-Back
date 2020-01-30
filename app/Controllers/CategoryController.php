@@ -26,21 +26,43 @@ class CategoryController extends CoreController{
         $category = Category::find($categoryId);
         $this->show('category/update', ["categoryAdd" => $category]);
     }
-        
+    
+    // Récupération des données envoyées par le formulaire en post
     public function addPost()
     {
-        $name = filter_input(INPUT_POST, 'name');
-        $subtitle = filter_input(INPUT_POST, 'subtitle');
-        $picture = filter_input(INPUT_POST, 'picture');
+        global $router;
+        // Récupère les valeurs que si elles existent en POST
+        if(filter_input(INPUT_POST, 'name')){
+            $name = $_POST['name'];
+        }
+
+        if(filter_input(INPUT_POST, 'subtitle')){
+            $subtitle = $_POST['subtitle'];
+        }
+
+        if(filter_input(INPUT_POST, 'picture')){
+            $picture = $_POST['picture'];
+        }
         
+        // Création du model
         $post = new Category();
         $post->setName($name);
         $post->setSubtitle($subtitle);
         $post->setPicture($picture);
 
-        $post->insert();
-        header('Location: http://localhost/S06/s06-oshop-BenjaminCoajou/public/category/list/');
-        exit;
+        // Déclenchement de l'enregistrement
+        $success = $post->insert();
+
+        if($success) {
+            // Redirection vers la page liste catégorie
+            $redirect = $router->generate('category-list');           
+        }
+        else {
+             // Redirection vers la page ajout catégorie
+            $redirect = $router->generate('category-add');          
+        }
+        header("Location: " . $redirect);
+        exit(); // facultatif car pas de code à éxécuter plus loin
     }
 
 }
