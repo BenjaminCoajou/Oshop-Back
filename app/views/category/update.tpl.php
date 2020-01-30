@@ -3,20 +3,21 @@
         <h2>Modifier une catégorie</h2>
         
         <form action="" method="POST" class="mt-5">
+        <input type="hidden" name="id" value="<?= $viewVars['categoryAdd']->getId() ?>">
             <div class="form-group">
                 <label for="name">Nom</label>
-                <input type="text" class="form-control" id="name" placeholder="Nom de la catégorie" value="<?= $viewVars['categoryAdd']->getName() ?>">
+                <input type="text" class="form-control" id="name" name ="name" placeholder="Nom de la catégorie" value="<?= $viewVars['categoryAdd']->getName() ?>">
             </div>
             <div class="form-group">
                 <label for="subtitle">Sous-titre</label>
-                <input type="text" class="form-control" id="subtitle" placeholder="Sous-titre" aria-describedby="subtitleHelpBlock" value="<?= $viewVars['categoryAdd']->getSubtitle() ?>">
+                <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="Sous-titre" aria-describedby="subtitleHelpBlock" value="<?= $viewVars['categoryAdd']->getSubtitle() ?>">
                 <small id="subtitleHelpBlock" class="form-text text-muted">
                     Sera affiché sur la page d'accueil comme bouton devant l'image
                 </small>
             </div>
             <div class="form-group">
                 <label for="picture">Image</label>
-                <input type="text" class="form-control" id="picture" placeholder="image jpg, gif, svg, png" aria-describedby="pictureHelpBlock" value="<?= $viewVars['categoryAdd']->getPicture() ?>">
+                <input type="text" class="form-control" id="picture" name="picture" placeholder="image jpg, gif, svg, png" aria-describedby="pictureHelpBlock" value="<?= $viewVars['categoryAdd']->getPicture() ?>">
                 <small id="pictureHelpBlock" class="form-text text-muted">
                     URL relative d'une image (jpg, gif, svg ou png) fournie sur <a href="https://benoclock.github.io/S06-images/" target="_blank">cette page</a>
                 </small>

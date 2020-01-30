@@ -91,6 +91,16 @@ $router->map(
     'category-update'
 );
 
+$router->map(
+    'POST',
+    '/category/update/[i:categoryId]',
+    [
+        'method' => 'updatePost',
+        'controller' => '\App\Controllers\CategoryController'
+    ],
+    'category-updatepost'
+);
+
 // Product ------------------
 $router->map(
     'GET',

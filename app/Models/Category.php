@@ -197,4 +197,32 @@ class Category extends CoreModel {
        
         return $success;
     }
+
+    public function setUpdate()
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête INSERT INTO
+        $statement = $pdo->prepare("UPDATE `category` SET `name` = :name,  `subtitle` = :subtitle, `picture` = :picture WHERE `category` . `id` = :id");
+        
+        // Execution de la requête d'insertion
+        $success = $statement->execute([
+            ':name'=> $this->name,
+            ':subtitle' => $this->subtitle,
+            ':picture'=> $this->picture,
+            ':id' => $this->id
+        ]);
+
+        
+        // return !!$insertedRows;
+        // return $insertedRows > 0;
+        // Si au moins une ligne ajoutée
+        if ($success === true) {
+            // Alors on récupère l'id auto-incrémenté généré par MySQL
+            $this->id = $pdo->lastInsertId();
+        }
+       
+        return $success;
+    }
 }

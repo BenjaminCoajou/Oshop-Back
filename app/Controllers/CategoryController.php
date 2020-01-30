@@ -65,4 +65,49 @@ class CategoryController extends CoreController{
         exit(); // facultatif car pas de code à éxécuter plus loin
     }
 
+    public function updatePost()
+    {
+        global $router;
+        // Récupère les valeurs que si elles existent en POST
+        if(filter_input(INPUT_POST, 'name')){
+            $name = $_POST['name'];
+        }
+
+        if(filter_input(INPUT_POST, 'subtitle')){
+            $subtitle = $_POST['subtitle'];
+        }
+
+        if(filter_input(INPUT_POST, 'picture')){
+            $picture = $_POST['picture'];
+        }
+
+        if(filter_input(INPUT_POST, 'id')){
+            $id = $_POST['id'];
+        }
+        
+        // Création du model
+        $post = new Category();
+        $post->setName($name);
+        $post->setSubtitle($subtitle);
+        $post->setPicture($picture);
+        $post->setId($id);
+
+        // Déclenchement de l'enregistrement
+        $success = $post->setUpdate();
+
+        if($success) {
+            // Redirection vers la page liste catégorie
+            $redirect = $router->generate('category-list');           
+        }
+        else {
+             // Redirection vers la page ajout catégorie
+            $redirect = $router->generate('category-update');          
+        }
+        header("Location: " . $redirect);
+        exit(); // facultatif car pas de code à éxécuter plus loin
+    }
+
 }
+
+
+
