@@ -220,7 +220,7 @@ class Product extends CoreModel
      */
     public function getBrandId()
     {
-        return $this->brandId;
+        return $this->brand_id;
     }
 
     /**
@@ -307,6 +307,50 @@ class Product extends CoreModel
         // alternative => $statement->bindParam(':name', $this->name);
         // execute renvoie un bool => true si succes, false si echec
         $success = $statement->execute([
+            ':name' => $this->name,
+            ':description' => $this->description,
+            ':picture' => $this->picture,
+            ':price' => $this->price,
+            ':status' => $this->status,
+            ':brandId' => $this->brand_id,
+            ':categoryId' => $this->category_id,
+            ':typeId' => $this->type_id
+        ]);
+        
+        // en cas de succès, on récupère l'id du produit inséré et on l'ajoute à l'objet courant
+        if ($success) {
+            $this->id = $pdo->lastInsertId();
+        } 
+
+        return $success;
+    }
+
+    public function setUpdate()
+    {
+        // récupérer une connexion PDO
+        $pdo = Database::getPDO();
+
+        // préparer la requête
+        $statement = $pdo->prepare("
+            UPDATE `product` 
+            SET 
+            `name` = :name, 
+            `description` = :description, 
+            `picture` = :picture,
+            `price` = :price, 
+            `status` = :status,
+            `brand_id` = :brandId,
+            `category_id` = :categoryId, 
+            `type_id` = :typeId 
+            WHERE `product` . `id` = :id             
+        ");
+
+        // execution de la requête
+        // On peut affecter les valeurs à insérer dans la requête directement en argument de la méthode execute()
+        // alternative => $statement->bindParam(':name', $this->name);
+        // execute renvoie un bool => true si succes, false si echec
+        $success = $statement->execute([
+            ':id' => $this->id,
             ':name' => $this->name,
             ':description' => $this->description,
             ':picture' => $this->picture,

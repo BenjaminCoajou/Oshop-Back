@@ -73,4 +73,52 @@ class ProductController extends CoreController
         header("Location: " . $redirect);
         exit(); // ici exit facultatif, rien ne sera de toute façon exécuté plus loin
     }
+
+    public function updatePost()
+    {
+        //beurk, mais très bien pour l'instant
+        global $router;
+
+        // récupération des valeurs saisies en POST
+        $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+        // FILTER_SANITIZE_MAGIC_QUOTES => gérer les apostrophes 
+        $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_MAGIC_QUOTES);
+        $picture = filter_input(INPUT_POST, 'picture');
+        $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
+        $status = filter_input(INPUT_POST, 'status', FILTER_VALIDATE_INT);
+        $brandId = filter_input(INPUT_POST, 'brandId', FILTER_VALIDATE_INT);
+        $categoryId = filter_input(INPUT_POST, 'categoryId', FILTER_VALIDATE_INT);
+        $typeId = filter_input(INPUT_POST, 'typeId', FILTER_VALIDATE_INT);
+
+        // création du model
+        $product = new Product();
+        // hydrater le modèle : lui donner les valeurs de ses propriétés
+        $product->setId($id);
+        $product->setName($name);
+        $product->setDescription($description);
+        $product->setPicture($picture);
+        $product->setPrice($price);
+        $product->setStatus($status);
+        $product->setBrandId($brandId);
+        $product->setCategoryId($categoryId);
+        $product->setTypeId($typeId);
+        
+        // déclencher l'enregistrement en bdd
+        // on récupère le succes de l'opération
+        $success = $product->setUpdate();
+
+        if ($success) {
+            // si la requête d'insert a fonctionné
+            // redirection vers la page de liste
+            $redirect = $router->generate('product-list');
+        } else {
+            // si la requête d'insert n'a pas fonctionné
+            // redirection vers la page d'ajout => on réaffiche le formulaire (avec potentiellement un message d'erreur)
+            $redirect = $router->generate('product-update');
+        }
+        
+        header("Location: " . $redirect);
+        exit(); // ici exit facultatif, rien ne sera de toute façon exécuté plus loin
+    }
 }

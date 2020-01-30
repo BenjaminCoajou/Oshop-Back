@@ -142,6 +142,16 @@ $router->map(
     'product-update'
 );
 
+$router->map(
+    'POST',
+    '/product/update/[i:productId]',
+    [
+        'method' => 'updatePost',
+        'controller' => '\App\Controllers\ProductController'
+    ],
+    'product-updatepost'
+);
+
 
 
 /* -------------
