@@ -284,11 +284,11 @@ class Product extends CoreModel
                 `name`,
                 `description`,
                 `picture`,
-                price, 
-                status,
-                brand_id,
-                category_id, 
-                type_id
+                `price`, 
+                `status`,
+                `brand_id`,
+                `category_id`, 
+                `type_id`
             ) 
             VALUES (
                 :name,
@@ -325,7 +325,7 @@ class Product extends CoreModel
         return $success;
     }
 
-    public function setUpdate()
+    public function update()
     {
         // récupérer une connexion PDO
         $pdo = Database::getPDO();
@@ -337,13 +337,19 @@ class Product extends CoreModel
             `name` = :name, 
             `description` = :description, 
             `picture` = :picture,
-            `price` = :price, 
+            `price` = :price,
+            `rate` = :rate,  
             `status` = :status,
             `brand_id` = :brandId,
             `category_id` = :categoryId, 
-            `type_id` = :typeId 
+            `type_id` = :typeId,  
+            `updated_at` = NOW() 
             WHERE `product` . `id` = :id             
         ");
+
+        // Utilisation de bindValue() exemple :
+        // $statement->bindValue(':name', $this->name);
+
 
         // execution de la requête
         // On peut affecter les valeurs à insérer dans la requête directement en argument de la méthode execute()
@@ -355,16 +361,12 @@ class Product extends CoreModel
             ':description' => $this->description,
             ':picture' => $this->picture,
             ':price' => $this->price,
+            ':rate' => $this->rate,
             ':status' => $this->status,
             ':brandId' => $this->brand_id,
             ':categoryId' => $this->category_id,
             ':typeId' => $this->type_id
         ]);
-        
-        // en cas de succès, on récupère l'id du produit inséré et on l'ajoute à l'objet courant
-        if ($success) {
-            $this->id = $pdo->lastInsertId();
-        } 
 
         return $success;
     }

@@ -27,6 +27,20 @@ class MainController extends CoreController {
         $this->show('main/home',['category' => $categoryToDisplay, 'product' => $productToDisplay]);
     }
 
+    public function add()
+    {
+        
+    }
+
+    public function list()
+    {
+        
+    }
+
+    public function update($id)
+    {
+        
+    }
 
 
     

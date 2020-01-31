@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Type;
+use App\Models\Brand;
 
 class ProductController extends CoreController
 {
@@ -19,13 +22,39 @@ class ProductController extends CoreController
 
     public function add()
     {
-        $this->show('product/add');
+        // récupérer les catégories pour l'affichage du <select>
+        $categoryList = Category::findAll();
+        // récupérer les types de produits pour l'affichage du <select>
+        $typeList = Type::findAll();
+        // récupérer les marques pour l'affichage du <select>
+        $brandList = Brand::findAll();
+
+        // compact est l'inverse d'extract, on s'en sert pour générer un array à partir de variables :
+        // on fournit les noms (attention, sous forme de string) des variables à ajouter à l'array 
+        // les clés de ces valeurs seront les noms des variables
+        $viewVars = compact('categoryList', 'typeList', 'brandList');
+        $this->show('product/add', $viewVars);
+        // équivaut à :
+        // $this->show('product/add', [
+        //     'categoryList' => $categoryList,
+        //     'typeList' => $typeList,
+        //     'brandList' => $brandList
+        // ]);
     }
 
     public function update($productId)
     {
-        $productAdd = Product::find($productId);
-        $this->show('product/update', ["productAdd" => $productAdd]);
+        $categoryList = Category::findAll();
+        
+        $typeList = Type::findAll();
+        
+        $brandList = Brand::findAll();
+
+        $product = Product::find($productId);
+
+        $viewVars = compact('categoryList', 'typeList', 'brandList', 'product');
+
+        $this->show('product/update', $viewVars);
     }
 
     public function addPost()
@@ -92,9 +121,8 @@ class ProductController extends CoreController
         $typeId = filter_input(INPUT_POST, 'typeId', FILTER_VALIDATE_INT);
 
         // création du model
-        $product = new Product();
+        $product = Product::find($id);
         // hydrater le modèle : lui donner les valeurs de ses propriétés
-        $product->setId($id);
         $product->setName($name);
         $product->setDescription($description);
         $product->setPicture($picture);
@@ -106,16 +134,16 @@ class ProductController extends CoreController
         
         // déclencher l'enregistrement en bdd
         // on récupère le succes de l'opération
-        $success = $product->setUpdate();
+        $success = $product->update();
 
         if ($success) {
             // si la requête d'insert a fonctionné
             // redirection vers la page de liste
-            $redirect = $router->generate('product-list');
+            $redirect = $router->generate('product-update', ['productId' => $id]);
         } else {
             // si la requête d'insert n'a pas fonctionné
             // redirection vers la page d'ajout => on réaffiche le formulaire (avec potentiellement un message d'erreur)
-            $redirect = $router->generate('product-update');
+            $redirect = $router->generate('product-update', ['productId' => $id]);
         }
         
         header("Location: " . $redirect);

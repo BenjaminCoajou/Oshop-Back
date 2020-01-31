@@ -2,7 +2,13 @@
 
 namespace App\Controllers;
 
-class CoreController {
+abstract class CoreController {
+
+    abstract public function add();
+    abstract public function list();
+    abstract public function update($id);
+    // abstract public function delete();
+
     /**
      * Méthode permettant d'afficher du code HTML en se basant sur les views
      *

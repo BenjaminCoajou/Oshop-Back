@@ -29,7 +29,7 @@ class Type extends CoreModel {
      * @param int $typeId ID du type
      * @return Type
      */
-    public function find($typeId)
+    static public function find($typeId)
     {
         // se connecter à la BDD
         $pdo = Database::getPDO();
@@ -52,7 +52,7 @@ class Type extends CoreModel {
      * 
      * @return Type[]
      */
-    public function findAll()
+    static public function findAll()
     {
         $pdo = Database::getPDO();
         $sql = 'SELECT * FROM `type`';
@@ -67,7 +67,7 @@ class Type extends CoreModel {
      * 
      * @return Type[]
      */
-    public function findAllFooter()
+    static public function findAllFooter()
     {
         $pdo = Database::getPDO();
         $sql = '
@@ -121,4 +121,17 @@ class Type extends CoreModel {
     {
         $this->footer_order = $footer_order;
     }
+
+    // Une méthode rendue obligatoire par la classe parent 
+    public function update()
+    {
+        
+    }
+
+    public function insert()
+    {
+        
+    }
+
+    
 }

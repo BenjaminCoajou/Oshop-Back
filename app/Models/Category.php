@@ -198,31 +198,31 @@ class Category extends CoreModel {
         return $success;
     }
 
-    public function setUpdate()
+    public function update()
     {
         // Récupération de l'objet PDO représentant la connexion à la DB
         $pdo = Database::getPDO();
 
-        // Ecriture de la requête INSERT INTO
-        $statement = $pdo->prepare("UPDATE `category` SET `name` = :name,  `subtitle` = :subtitle, `picture` = :picture WHERE `category` . `id` = :id");
+        // Ecriture de la requête UPDATE SET
+        $sql = "
+        UPDATE `category`
+            SET
+                name = :name,
+                subtitle = :subtitle,
+                picture = :picture,
+                updated_at = NOW()
+            WHERE id = :id
+        ";
+
+        $statement = $pdo->prepare($sql);
         
         // Execution de la requête d'insertion
-        $success = $statement->execute([
-            ':name'=> $this->name,
+        return $statement->execute([
+            ':id' => $this->id,
+            ':name' => $this->name,
             ':subtitle' => $this->subtitle,
-            ':picture'=> $this->picture,
-            ':id' => $this->id
+            ':picture'=> $this->picture
         ]);
 
-        
-        // return !!$insertedRows;
-        // return $insertedRows > 0;
-        // Si au moins une ligne ajoutée
-        if ($success === true) {
-            // Alors on récupère l'id auto-incrémenté généré par MySQL
-            $this->id = $pdo->lastInsertId();
-        }
-       
-        return $success;
     }
 }

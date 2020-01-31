@@ -69,6 +69,10 @@ class CategoryController extends CoreController{
     {
         global $router;
         // Récupère les valeurs que si elles existent en POST
+        if(filter_input(INPUT_POST, 'id')){
+            $id = $_POST['id'];
+        }
+
         if(filter_input(INPUT_POST, 'name')){
             $name = $_POST['name'];
         }
@@ -81,27 +85,24 @@ class CategoryController extends CoreController{
             $picture = $_POST['picture'];
         }
 
-        if(filter_input(INPUT_POST, 'id')){
-            $id = $_POST['id'];
-        }
         
-        // Création du model
-        $post = new Category();
+        // Récupération du model
+        $post = Category::find($id);
         $post->setName($name);
         $post->setSubtitle($subtitle);
         $post->setPicture($picture);
-        $post->setId($id);
 
         // Déclenchement de l'enregistrement
-        $success = $post->setUpdate();
+        $success = $post->update();
 
         if($success) {
             // Redirection vers la page liste catégorie
-            $redirect = $router->generate('category-list');           
+            $redirect = $router->generate('category-update', ['categoryId' => $id]);           
         }
         else {
              // Redirection vers la page ajout catégorie
-            $redirect = $router->generate('category-update');          
+             exit('Erreur d\'insertion');
+            $redirect = $router->generate('category-update', ['categoryId' => $id]);          
         }
         header("Location: " . $redirect);
         exit(); // facultatif car pas de code à éxécuter plus loin

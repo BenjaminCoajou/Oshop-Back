@@ -37,23 +37,38 @@
         </div>
         <div class="form-group">
             <label for="brandId">numéro d'identification de la marque</label>
-            <input type="text" class="form-control" id="brandId" name="brandId" placeholder="ID de la marque" aria-describedby="subtitleHelpBlock">
-            <small id="subtitleHelpBlock" class="form-text text-muted">
-                ID de la marque (Numéro uniquement). Exemple: BOOTstrap = 2
+            <select id="brand" name="brandId">
+                <option selected value="0"></option>
+                <?php foreach ($brandList as $brand) : ?>
+                <option value="<?= $brand->getId() ?>"><?= $brand->getName() ?></option>
+                <?php endforeach; ?>
+            </select>
+            <small id="pictureHelpBlock" class="form-text text-muted">
+                Choix de la marque du produit
             </small>
         </div>
         <div class="form-group">
             <label for="categoryId">numéro d'identification de la catégorie</label>
-            <input type="text" class="form-control" id="categoryId" name="categoryId" placeholder="ID de la catégorie" aria-describedby="subtitleHelpBlock">
-            <small id="subtitleHelpBlock" class="form-text text-muted">
-                ID de la catégorie (Numéro uniquement). Exemple: Sortir = 4
+            <select id="category" name="categoryId">
+                <option selected value="0"></option>
+                <?php foreach ($categoryList as $category) : ?>
+                <option value="<?= $category->getId() ?>"><?= $category->getName() ?></option>
+                <?php endforeach; ?>
+            </select>
+            <small id="pictureHelpBlock" class="form-text text-muted">
+                Choix de la catégorie à laquelle lier ce produit
             </small>
         </div>
         <div class="form-group">
             <label for="typeId">numéro d'identification du type</label>
-            <input type="text" class="form-control" id="typeId" name="typeId" placeholder="ID du type de produit" aria-describedby="subtitleHelpBlock">
-            <small id="subtitleHelpBlock" class="form-text text-muted">
-            ID du type de produit (Numéro uniquement). Exemple: Tongs = 3
+            <select id="type"name="typeId">
+                <option selected value="0"></option>
+                <?php foreach ($typeList as $type) : ?>
+                <option value="<?= $type->getId() ?>"><?= $type->getName() ?></option>
+                <?php endforeach; ?>
+            </select>
+            <small id="pictureHelpBlock" class="form-text text-muted">
+                Choix du type de ce produit
             </small>
         </div>
         <button type="submit" class="btn btn-primary btn-block mt-5">Valider</button>

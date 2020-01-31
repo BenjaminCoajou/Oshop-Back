@@ -93,7 +93,7 @@ $router->map(
 
 $router->map(
     'POST',
-    '/category/update/[i:categoryId]',
+    '/category/update/',
     [
         'method' => 'updatePost',
         'controller' => '\App\Controllers\CategoryController'
@@ -144,7 +144,7 @@ $router->map(
 
 $router->map(
     'POST',
-    '/product/update/[i:productId]',
+    '/product/update/',
     [
         'method' => 'updatePost',
         'controller' => '\App\Controllers\ProductController'

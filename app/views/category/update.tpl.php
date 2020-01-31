@@ -2,7 +2,7 @@
         <a href="<?= $router->generate('category-list') ?>" class="btn btn-success float-right">Retour</a>
         <h2>Modifier une catégorie</h2>
         
-        <form action="" method="POST" class="mt-5">
+        <form action="<?= $router->generate('category-updatepost') ?>" method="POST" class="mt-5">
         <input type="hidden" name="id" value="<?= $viewVars['categoryAdd']->getId() ?>">
             <div class="form-group">
                 <label for="name">Nom</label>
