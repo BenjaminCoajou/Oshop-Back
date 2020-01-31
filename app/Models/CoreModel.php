@@ -24,7 +24,7 @@ abstract class CoreModel {
     abstract static public function find($id); // read
     abstract static public function findAll(); // read
     abstract public function update(); // update
-    // abstract public function delete(); // delete
+    abstract public function delete(); // delete
 
     /**
      * Get the value of id

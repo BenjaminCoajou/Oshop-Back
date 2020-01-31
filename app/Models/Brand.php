@@ -186,4 +186,9 @@ class Brand extends CoreModel {
     {
         $this->footer_order = $footer_order;
     }
+
+    public function delete()
+    {
+        
+    }
 }

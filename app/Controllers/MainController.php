@@ -42,6 +42,11 @@ class MainController extends CoreController {
         
     }
 
+    public function delete($id)
+    {
+        
+    }
+
 
     
 

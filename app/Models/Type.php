@@ -133,5 +133,9 @@ class Type extends CoreModel {
         
     }
 
+    public function delete()
+    {
+        
+    }
     
 }

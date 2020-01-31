@@ -101,6 +101,16 @@ $router->map(
     'category-updatepost'
 );
 
+$router->map(
+    'GET',
+    '/category/delete/[i:categoryId]',
+    [
+        'method' => 'delete',
+        'controller' => '\App\Controllers\CategoryController'
+    ],
+    'category-delete'
+);
+
 // Product ------------------
 $router->map(
     'GET',
@@ -151,6 +161,17 @@ $router->map(
     ],
     'product-updatepost'
 );
+
+$router->map(
+    'GET',
+    '/product/delete/[i:productId]',
+    [
+        'method' => 'delete',
+        'controller' => '\App\Controllers\ProductController'
+    ],
+    'product-delete'
+);
+
 
 
 
