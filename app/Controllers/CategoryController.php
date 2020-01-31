@@ -108,6 +108,26 @@ class CategoryController extends CoreController{
         exit(); // facultatif car pas de code à éxécuter plus loin
     }
 
+    public function delete($categoryId)
+    {
+        global $router;
+
+        $category = Category::find($categoryId);
+
+        $success = $category->delete();
+
+        if($success){
+
+        }
+        else{
+
+        }
+
+        // redirection vers la liste
+        header('Location: ' . $router->generate('category-list'));
+        exit();
+    }
+    
 }
 
 

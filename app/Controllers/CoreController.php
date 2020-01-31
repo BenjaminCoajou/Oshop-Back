@@ -7,7 +7,7 @@ abstract class CoreController {
     abstract public function add();
     abstract public function list();
     abstract public function update($id);
-    // abstract public function delete();
+    abstract public function delete($id);
 
     /**
      * Méthode permettant d'afficher du code HTML en se basant sur les views

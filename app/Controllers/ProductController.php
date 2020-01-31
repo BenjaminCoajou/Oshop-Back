@@ -149,4 +149,24 @@ class ProductController extends CoreController
         header("Location: " . $redirect);
         exit(); // ici exit facultatif, rien ne sera de toute façon exécuté plus loin
     }
+
+    public function delete($productId)
+    {
+        global $router;
+
+        $product = Product::find($productId);
+
+        $success = $product->delete();
+
+        if($success){
+
+        }
+        else{
+
+        }
+
+        // redirection vers la liste
+        header('Location: ' . $router->generate('product-list'));
+        exit();
+    }
 }

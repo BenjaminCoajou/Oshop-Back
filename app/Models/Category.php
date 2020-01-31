@@ -225,4 +225,25 @@ class Category extends CoreModel {
         ]);
 
     }
+
+    public function delete()
+    {
+       // récupérer une connexion PDO
+       $pdo = Database::getPDO();
+
+       $sql = "
+           DELETE FROM `category`
+           WHERE `id` = :id
+       ";
+
+       // préparer la requête
+       $statement = $pdo->prepare($sql);
+
+       // exécution de la requête avec les valeurs de l'objet courant $this
+       $success = $statement->execute([
+           ':id' => $this->id
+       ]);
+
+       return $success; 
+    }
 }
