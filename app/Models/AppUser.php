@@ -135,7 +135,52 @@ class AppUser extends CoreModel {
         return $this;
     }
     
-    public function insert(){}
+    public function insert()
+    {
+         // récupérer une connexion PDO
+         $pdo = Database::getPDO();
+
+         // préparer la requête
+         $statement = $pdo->prepare("
+             INSERT INTO `app_user` (
+                 `email`,
+                 `password`,
+                 `firstname`,
+                 `lastname`, 
+                 `role`,
+                 `status`
+                 ) 
+             VALUES (
+                 :email,
+                 :password,
+                 :firstname,
+                 :lastname,
+                 :role,
+                 :status
+                )
+         ");
+ 
+         // execution de la requête
+         // On peut affecter les valeurs à insérer dans la requête directement en argument de la méthode execute()
+         // alternative => $statement->bindParam(':name', $this->name);
+         // execute renvoie un bool => true si succes, false si echec
+         $success = $statement->execute([
+             ':email' => $this->email,
+             ':password' => $this->password,
+             ':firstname' => $this->firstname,
+             ':lastname' => $this->lastname,
+             ':role' => $this->role,
+             ':status' => $this->status
+         ]);
+         
+         // en cas de succès, on récupère l'id du produit inséré et on l'ajoute à l'objet courant
+         if ($success) {
+             $this->id = $pdo->lastInsertId();
+         } 
+ 
+         return $success;
+    
+    }
     static public function find($id) {}
 
     static public function findAll(){
@@ -147,7 +192,7 @@ class AppUser extends CoreModel {
         // self est une référence à la classe courante comme $this est une référence à l'objet courant
         return $results;
     }
-    
+
     public function update(){}
     public function delete(){}
 

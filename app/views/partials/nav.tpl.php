@@ -32,6 +32,9 @@
                         <a class="nav-link" href="#">Sélections Accueil &amp; Footer</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="<?= $router->generate('user-list')?>">Utilisateur</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="<?= $router->generate('user-logout')?>">Déconnexion</a>
                     </li>
                 </ul>

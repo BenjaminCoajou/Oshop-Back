@@ -230,6 +230,16 @@ $router->map(
     'user-add'
 );
 
+$router->map(
+    'POST',
+    '/user/add/',
+    [
+        'method' => 'addPost',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-addpost'
+);
+
 
 
 /* -------------

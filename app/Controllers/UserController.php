@@ -22,6 +22,47 @@ class UserController extends CoreController {
         $this->show('user/list',['userList' => $userList]);
     
     }
+
+    public function addPost()
+    {
+        $this->chechAutorization(['admin']);
+
+        global $router;
+        // Récupère les valeurs que si elles existent en POST
+       $email = filter_input(INPUT_POST, 'email');
+       $password = filter_input(INPUT_POST, 'password');
+       $firstname = filter_input(INPUT_POST, 'firstname');
+       $lastname = filter_input(INPUT_POST, 'lastname');
+       $role = filter_input(INPUT_POST, 'role');
+       $status = filter_input(INPUT_POST, 'status');
+
+        
+        // Création du model
+        $user = new AppUser();
+        $user->setEmail($email);
+        $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+        $user->setFirstname($firstname);
+        $user->setLastname($lastname);
+        $user->setRole($role);
+        $user->setStatus($status);
+
+        
+
+        // Déclenchement de l'enregistrement
+        $success = $user->insert();
+
+        if($success) {
+            // Redirection vers la page liste catégorie
+            $redirect = $router->generate('user-list');           
+        }
+        else {
+             // Redirection vers la page ajout catégorie
+            $redirect = $router->generate('user-add');          
+        }
+        header("Location: " . $redirect);
+        exit(); // facultatif car pas de code à éxécuter plus loin
+    }
+
     public function update($id){}
     public function delete($id){}
 
