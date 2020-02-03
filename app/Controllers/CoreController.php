@@ -9,6 +9,25 @@ abstract class CoreController {
     abstract public function update($id);
     abstract public function delete($id);
 
+    protected function chechAutorization($roles = [])
+    {
+        global $router;
+
+        if(isset($_SESSION['userId']) && isset($_SESSION['userObject'])){
+            if(in_array($_SESSION['userObject']->getRole(), $roles)){
+                return true;
+            }
+            else{                
+                http_response_code(403);
+                exit();
+            }
+        }
+        else{
+            header('Location:' . $router->generate('user-login'));
+        }
+    }
+
+
     /**
      * Méthode permettant d'afficher du code HTML en se basant sur les views
      *
@@ -31,6 +50,13 @@ abstract class CoreController {
         // définir l'url absolue pour la racine du site
         // /!\ != racine projet, ici on parle du répertoire public/
         $viewVars['baseUri'] = $_SERVER['BASE_URI'];
+
+        if(isset($_SESSION['flashMessages'])){
+            $viewVars['flashMessages'] = $_SESSION['flashMessages'];
+            unset($_SESSION['flashMessages']);
+        } else{
+            $viewVars['flashMessages'] = false;
+        }
 
         // On veut désormais accéder aux données de $viewVars, mais sans accéder au tableau
         // La fonction extract permet de créer une variable pour chaque élément du tableau passé en argument

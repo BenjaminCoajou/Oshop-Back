@@ -1,6 +1,9 @@
 <?php
 
-use App\Models\CoreModel;
+namespace App\Models;
+
+use App\Utils\Database;
+use PDO;
 
 class AppUser extends CoreModel {
 
@@ -131,4 +134,29 @@ class AppUser extends CoreModel {
 
         return $this;
     }
+    
+    public function insert(){}
+    static public function find($id) {}
+    static public function findAll(){}
+    public function update(){}
+    public function delete(){}
+
+    static public function findByEmail($email)
+    {
+        $pdo = Database::getPDO();
+
+        $sql = 'SELECT * FROM `app_user` WHERE `email` = :email';
+
+        $pdoStatement = $pdo->prepare($sql);
+
+        $pdoStatement->execute([
+            ':email' =>$email
+        ]);
+
+        $results = $pdoStatement->fetchObject(self::class);
+        // self::class renvoie le nom complet (namespace compris) de la classe courante
+        // self est une référence à la classe courante comme $this est une référence à l'objet courant
+        return $results;
+    }
+
 }
