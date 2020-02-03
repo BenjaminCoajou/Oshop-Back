@@ -8,6 +8,9 @@
 // mais aussi d'activer le chargement automatique des classes (convention PSR-4)
 require_once '../vendor/autoload.php';
 
+// On démarre la session (après le require de l'autoload)
+session_start();
+
 /* ------------
 --- ROUTAGE ---
 -------------*/
@@ -50,6 +53,29 @@ $router->map(
     ],
     'main-home'
 );
+
+// Connexion ----------------
+$router->map(
+    'GET',
+    '/user/login/',
+    [
+        'method' => 'login',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-login'
+);
+
+$router->map(
+    'POST',
+    '/user/login/',
+    [
+        'method' => 'loginPost',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-loginpost'
+);
+
+// Catégorie ------------------
 
 $router->map(
     'GET',
@@ -172,6 +198,47 @@ $router->map(
     'product-delete'
 );
 
+// Déconnexion -----------------
+$router->map(
+    'GET',
+    '/user/logout/',
+    [
+        'method' => 'logout',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-logout'
+);
+
+// Utilisateurs -------------
+$router->map(
+    'GET',
+    '/user/list/',
+    [
+        'method' => 'list',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-list'
+);
+
+$router->map(
+    'GET',
+    '/user/add/',
+    [
+        'method' => 'add',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-add'
+);
+
+$router->map(
+    'POST',
+    '/user/add/',
+    [
+        'method' => 'addPost',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-addpost'
+);
 
 
 
