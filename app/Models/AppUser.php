@@ -137,7 +137,17 @@ class AppUser extends CoreModel {
     
     public function insert(){}
     static public function find($id) {}
-    static public function findAll(){}
+
+    static public function findAll(){
+        $pdo = Database::getPDO();
+        $sql = 'SELECT * FROM `app_user`';
+        $pdoStatement = $pdo->query($sql);
+        $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, self::class);
+        // self::class renvoie le nom complet (namespace compris) de la classe courante
+        // self est une référence à la classe courante comme $this est une référence à l'objet courant
+        return $results;
+    }
+    
     public function update(){}
     public function delete(){}
 

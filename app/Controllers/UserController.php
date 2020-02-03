@@ -7,8 +7,21 @@ use App\Models\AppUser;
 class UserController extends CoreController {
 
     
-    public function add(){}
-    public function list(){}
+    public function add(){
+        $this->chechAutorization(['admin']);
+        
+        $this->show('user/add');
+    }
+
+    public function list(){
+        
+        $this->chechAutorization(['admin']);
+
+        $userList = AppUser::findAll();
+
+        $this->show('user/list',['userList' => $userList]);
+    
+    }
     public function update($id){}
     public function delete($id){}
 

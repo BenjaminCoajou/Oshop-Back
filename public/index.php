@@ -209,6 +209,26 @@ $router->map(
     'user-logout'
 );
 
+// Utilisateurs -------------
+$router->map(
+    'GET',
+    '/user/list/',
+    [
+        'method' => 'list',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-list'
+);
+
+$router->map(
+    'GET',
+    '/user/add/',
+    [
+        'method' => 'add',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-add'
+);
 
 
 
