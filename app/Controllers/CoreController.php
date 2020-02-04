@@ -13,16 +13,52 @@ abstract class CoreController {
     public function __construct()
     {
         // Récupération de l'action à faire (nom de la route)
+        global $match;
+        $currentRoute = $match['name'];
 
-        // Définition du role qui est attribut à chaque route (liste)
-        // On liste les routes où il faut un controle []
-        // Pour chaque route on donne la liste des role qui peuvent y accéder
-
+        // inclure l'acl (acces control list)
+        require __DIR__ . '/../acl.php';
         // Si la route est présente dans la liste des routes pour lesquelles on prévoit un controle
+        if(array_key_exists($currentRoute, $controlList)){
             // on lance checkAutorization()
+            $this->checkAutorization($controlList[$currentRoute]);
+        }
+
+        // Gestion du token CSRF
+        // Lister les méthode de controllers qui font une action sensible
+        $csrfTokenToCheckInGet = [
+            'category-delete',
+            'user-delete',
+            'product-delete'
+        ];
+
+        $csrfTokenToCheckInPost = [
+            'category-addpost',
+            'category-updatepost',
+            'user-addpost',
+            'user-updatepost',
+            'product-addpost',
+            'product-updatepost'
+        ];
+        // Si la méthode est dans la liste des action à protéger contre la faille CSRF, on vérifi le token
+        if(in_array($currentRoute, $csrfTokenToCheckInGet)){
+            // La route courante est à protéger des attaques CSRF
+            if($_GET['csrf-token'] !== $_SESSION['csrf-token']){
+                http_response_code(403);
+                exit('Dégage pirate. Tu vas tâter de mon épée.');
+            };
+        }
+        // Même chose en POST
+        if(in_array($currentRoute, $csrfTokenToCheckInPost)){
+            // La route courante est à protéger des attaques CSRF
+            if($_POST['csrf-token'] !== $_SESSION['csrf-token']){
+                http_response_code(403);
+                exit('Dégage pirate. Tu vas tâter de mon épée.');
+            };
+        }
     }
 
-    protected function chechAutorization($roles = [])
+    protected function checkAutorization($roles = [])
     {
         global $router;
 
@@ -70,6 +106,16 @@ abstract class CoreController {
         } else{
             $viewVars['flashMessages'] = [];
         }
+
+        // On génére un token si inexitant
+        if(!isset($_SESSION['csrf-token'])){
+            $viewVars['csrfToken'] = bin2hex(random_bytes(32));
+            $_SESSION['csrf-token'] = $viewVars['csrfToken'];
+        }
+        else{
+            $viewVars['csrfToken'] = $_SESSION['csrf-token'];
+        }
+
 
         // On veut désormais accéder aux données de $viewVars, mais sans accéder au tableau
         // La fonction extract permet de créer une variable pour chaque élément du tableau passé en argument

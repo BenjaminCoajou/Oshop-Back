@@ -8,15 +8,12 @@ class UserController extends CoreController {
 
     
     public function add(){
-        $this->chechAutorization(['admin']);
-        
+            
         $this->show('user/add');
     }
 
     public function list(){
-        
-        $this->chechAutorization(['admin']);
-
+    
         $userList = AppUser::findAll();
 
         $this->show('user/list',['userList' => $userList]);
@@ -25,8 +22,7 @@ class UserController extends CoreController {
 
     public function addPost()
     {
-        $this->chechAutorization(['admin']);
-
+       
         global $router;
 
         // valider les données en POST
@@ -168,6 +164,7 @@ class UserController extends CoreController {
         
         unset($_SESSION['userId']);
         unset($_SESSION['userObject']);
+        unset($_SESSION['csrf-token']);
         header('Location: ' . $router->generate('user-login'));
     }
 
