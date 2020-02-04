@@ -109,7 +109,7 @@ $router->map(
 
 $router->map(
     'GET',
-    '/category/update/[i:categoryId]',
+    '/category/[i:categoryId]/update/',
     [
         'method' => 'update',
         'controller' => '\App\Controllers\CategoryController'
@@ -129,7 +129,7 @@ $router->map(
 
 $router->map(
     'GET',
-    '/category/delete/[i:categoryId]',
+    '/category/[i:categoryId]/delete/',
     [
         'method' => 'delete',
         'controller' => '\App\Controllers\CategoryController'
@@ -170,7 +170,7 @@ $router->map(
 
 $router->map(
     'GET',
-    '/product/update/[i:productId]',
+    '/product/[i:productId]/update/',
     [
         'method' => 'update',
         'controller' => '\App\Controllers\ProductController'
@@ -190,7 +190,7 @@ $router->map(
 
 $router->map(
     'GET',
-    '/product/delete/[i:productId]',
+    '/product/[i:productId]/delete/',
     [
         'method' => 'delete',
         'controller' => '\App\Controllers\ProductController'
@@ -238,6 +238,36 @@ $router->map(
         'controller' => '\App\Controllers\UserController'
     ],
     'user-addpost'
+);
+
+$router->map(
+    'GET',
+    '/user/[i:userId]/delete/',
+    [
+        'method' => 'delete',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-delete'
+);
+
+$router->map(
+    'GET',
+    '/user/[i:userId]/update/',
+    [
+        'method' => 'update',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-update'
+);
+
+$router->map(
+    'POST',
+    '/user/update/',
+    [
+        'method' => 'updatePost',
+        'controller' => '\App\Controllers\UserController'
+    ],
+    'user-updatepost'
 );
 
 

@@ -3,6 +3,8 @@
     <a href="<?= $router->generate('user-list') ?>" class="btn btn-success float-right">Retour</a>
     <h2>Ajouter un utilisateur</h2>
 
+    <?php  include __DIR__ . '/../partials/flash_messages.tpl.php'?>
+
     <form action="<?= $router->generate('user-addpost') ?>" method="POST" class="mt-5">
         <div class="form-group">
             <label for="email">email</label>
@@ -10,7 +12,12 @@
         </div>
         <div class="form-group">
             <label for="password">mot de passe</label>
-            <input type="text" class="form-control" id="password" name="password" placeholder="mot de passe" aria-describedby="subtitleHelpBlock">
+            <input type="password" class="form-control" id="password" name="password" placeholder="mot de passe" aria-describedby="subtitleHelpBlock">
+
+        </div>
+        <div class="form-group">
+            <label for="password">confirmation mot de passe</label>
+            <input type="password" class="form-control" id="password" name="password-confirm" placeholder="confirmez le mot de passe" aria-describedby="subtitleHelpBlock">
 
         </div>
         <div class="form-group">
@@ -21,9 +28,7 @@
         <div class="form-group">
             <label for="lastname">Nom</label>
             <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nom" aria-describedby="subtitleHelpBlock">
-            <small id="subtitleHelpBlock" class="form-text text-muted">
-                Prix du produit
-            </small>
+            
         </div>
 
         <div class="form-group">

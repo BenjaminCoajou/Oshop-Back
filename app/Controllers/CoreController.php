@@ -9,6 +9,19 @@ abstract class CoreController {
     abstract public function update($id);
     abstract public function delete($id);
 
+
+    public function __construct()
+    {
+        // Récupération de l'action à faire (nom de la route)
+
+        // Définition du role qui est attribut à chaque route (liste)
+        // On liste les routes où il faut un controle []
+        // Pour chaque route on donne la liste des role qui peuvent y accéder
+
+        // Si la route est présente dans la liste des routes pour lesquelles on prévoit un controle
+            // on lance checkAutorization()
+    }
+
     protected function chechAutorization($roles = [])
     {
         global $router;
@@ -55,7 +68,7 @@ abstract class CoreController {
             $viewVars['flashMessages'] = $_SESSION['flashMessages'];
             unset($_SESSION['flashMessages']);
         } else{
-            $viewVars['flashMessages'] = false;
+            $viewVars['flashMessages'] = [];
         }
 
         // On veut désormais accéder aux données de $viewVars, mais sans accéder au tableau

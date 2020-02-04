@@ -1,8 +1,6 @@
 <div class="container">
     <div id="login-row" class="row justify-content-center align-items-center">
-       <?php if($flashMessages) :?>
-    <div class="alert alert-danger"><?= $flashMessages?></div>
-    <?php endif ?>
+    <?php  include __DIR__ . '/../partials/flash_messages.tpl.php'?>
     <div id="login-column" class="col-md-6">
             <div class="box">
                 <div class="shape1"></div>
