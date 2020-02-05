@@ -246,4 +246,23 @@ class Category extends CoreModel {
 
        return $success; 
     }
+
+    static public function resetAllHomeOrder()
+    {
+        $pdo = Database::getPDO();
+
+       $sql = "
+            UPDATE `category`
+            SET
+            `home_order` = 0
+       ";
+
+       // préparer la requête
+       $statement = $pdo->prepare($sql);
+
+       // exécution de la requête avec les valeurs de l'objet courant $this
+       $success = $statement->execute();
+
+       return $success; 
+    }
 }

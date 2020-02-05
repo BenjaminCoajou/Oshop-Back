@@ -1,6 +1,6 @@
 <div class="container my-4">
     <a href="<?= $router->generate('main-home') ?>" class="btn btn-success float-right">Retour</a>
-    <h2>Gestion de la page acceuil</h2>
+    <h2>Gestion de la page accueil</h2>
 <form action="" method="POST" class="mt-5">
     <div class="row">
         <?php for($i=1; $i<= 5; $i++) :?>

@@ -30,16 +30,28 @@ class MainController extends CoreController {
     public function homeCategories()
     {
         $categoryList = Category::findAll();
-        $categoryListHomePage = Category::findAllHomepage();
+        
         $this->show('main/home_categories',[
-            'categoryList' => $categoryList,
-            'categoryListHomePage' => $categoryListHomePage
+            'categoryList' => $categoryList            
         ]);
     }
 
     public function homeCategoriesPost()
     {
         dump($_POST);
+        //
+
+        // Mettre à 0 le champ home_order
+        $homeOrderReset = Category::resetAllHomeOrder();
+
+        if($homeOrderReset){
+            // Maj de home_order via le POST
+
+
+        }
+
+        // Redirection vers le formulaire
+
         exit();
     }
 
