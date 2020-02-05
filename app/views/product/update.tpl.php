@@ -9,6 +9,12 @@
             <input type="text" class="form-control" id="name" name="name" placeholder="Nom du produit" value="<?= $product->getName() ?>">
         </div>
         <div class="form-group">
+            <label for="description">Tags</label>
+            <?php foreach ($tagList as $tag) : ?>
+            <span class="badge badge-secondary"><?= $tag['tag_name'] ?></span>
+            <?php endforeach; ?>
+        </div>
+        <div class="form-group">
             <label for="description">Description</label>
             <input type="text" class="form-control" id="description" name="description" placeholder="description" aria-describedby="subtitleHelpBlock" value="<?= $product->getDescription() ?>">
             <small id="subtitleHelpBlock" class="form-text text-muted">

@@ -52,8 +52,10 @@ class ProductController extends CoreController
 
         $product = Product::find($productId);
 
-        $viewVars = compact('categoryList', 'typeList', 'brandList', 'product');
-
+        $tagList = $product->findTagsForProduct();
+        
+        $viewVars = compact('categoryList', 'typeList', 'brandList', 'product', 'tagList');
+        
         $this->show('product/update', $viewVars);
     }
 

@@ -391,4 +391,25 @@ class Product extends CoreModel
 
         return $success;
     }
+
+    public function findTagsForProduct() 
+    {
+        $pdo = Database::getPDO();
+
+        $sql = "
+        SELECT `tag`.`name` AS 'tag_name'
+        FROM `product`
+        INNER JOIN `product_tag` ON `product_tag`.`product_id` = `product`.`id`
+        INNER JOIN `tag` ON `product_tag`.`tag_id` = `tag`.`id`
+        WHERE `product`.`id` = :productId";
+
+        $pdoStatement = $pdo->prepare($sql);
+        $pdoStatement->execute([
+            ':productId' => $this->id
+        ]);
+
+        $tags = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $tags;
+    }
 }
