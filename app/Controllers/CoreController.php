@@ -38,7 +38,8 @@ abstract class CoreController {
             'user-addpost',
             'user-updatepost',
             'product-addpost',
-            'product-updatepost'
+            'product-updatepost',
+            'main-home-categoriespost'
         ];
         // Si la méthode est dans la liste des action à protéger contre la faille CSRF, on vérifi le token
         if(in_array($currentRoute, $csrfTokenToCheckInGet)){

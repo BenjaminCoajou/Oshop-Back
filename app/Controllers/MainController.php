@@ -38,8 +38,16 @@ class MainController extends CoreController {
 
     public function homeCategoriesPost()
     {
-        dump($_POST);
-        //
+        
+        global $router;
+
+        // Vérification des données reçues
+        if(!filter_input_array(INPUT_POST, ['emplacement' => FILTER_VALIDATE_INT])){
+            exit('Erreur donnés');
+        }
+
+        $emplacement = $_POST['emplacement'];
+        
 
         // Mettre à 0 le champ home_order
         $homeOrderReset = Category::resetAllHomeOrder();
@@ -47,11 +55,29 @@ class MainController extends CoreController {
         if($homeOrderReset){
             // Maj de home_order via le POST
 
+            foreach($emplacement as $homeOrder => $categoryId){
+
+                // Si pas de valeur pour $categoryId (select vide)
+                if(empty($categoryId)){
+                    // On passer au tour de boucle suivant
+                    continue;
+                }
+
+                // homeOrder doit être incrémenté pour correspondre à une valeur utilisable pour le champ home_order
+                $homeOrder++;
+
+                // Charger le model de la catégorie courante 
+                $currentCategory = Category::find($categoryId);
+                // Modifier la valeur de home order pour la catégorie
+                $currentCategory->setHomeOrder($homeOrder);
+
+                $currentCategory->update();
+            }
 
         }
 
         // Redirection vers le formulaire
-
+        header('Location:' . $router->generate('main-home-categories'));
         exit();
     }
 

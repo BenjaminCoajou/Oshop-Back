@@ -23,5 +23,7 @@ $controlList = [
     'user-addpost' => ['admin'],
     'user-delete' => ['admin'],
     'user-update' => ['admin'],
-    'user-updatepost' => ['admin']       
+    'user-updatepost' => ['admin'],
+    'main-home-categories' => ['admin', 'catalog-manager'],
+    'main-home-categoriespost' => ['admin', 'catalog-manager']     
 ];

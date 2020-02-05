@@ -1,7 +1,8 @@
 <div class="container my-4">
     <a href="<?= $router->generate('main-home') ?>" class="btn btn-success float-right">Retour</a>
     <h2>Gestion de la page accueil</h2>
-<form action="" method="POST" class="mt-5">
+<form id="home-categories-form" action="<?= $router->generate('main-home-categoriespost') ?>" method="POST" class="mt-5">
+    <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">
     <div class="row">
         <?php for($i=1; $i<= 5; $i++) :?>
         <div class="col">

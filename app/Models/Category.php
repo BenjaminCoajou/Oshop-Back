@@ -210,6 +210,7 @@ class Category extends CoreModel {
                 name = :name,
                 subtitle = :subtitle,
                 picture = :picture,
+                home_order = :home_order,
                 updated_at = NOW()
             WHERE id = :id
         ";
@@ -221,7 +222,8 @@ class Category extends CoreModel {
             ':id' => $this->id,
             ':name' => $this->name,
             ':subtitle' => $this->subtitle,
-            ':picture'=> $this->picture
+            ':picture'=> $this->picture,
+            'home_order'=> $this->home_order
         ]);
 
     }
