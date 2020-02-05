@@ -210,6 +210,7 @@ class Category extends CoreModel {
                 name = :name,
                 subtitle = :subtitle,
                 picture = :picture,
+                home_order = :home_order,
                 updated_at = NOW()
             WHERE id = :id
         ";
@@ -221,7 +222,8 @@ class Category extends CoreModel {
             ':id' => $this->id,
             ':name' => $this->name,
             ':subtitle' => $this->subtitle,
-            ':picture'=> $this->picture
+            ':picture'=> $this->picture,
+            'home_order'=> $this->home_order
         ]);
 
     }
@@ -243,6 +245,25 @@ class Category extends CoreModel {
        $success = $statement->execute([
            ':id' => $this->id
        ]);
+
+       return $success; 
+    }
+
+    static public function resetAllHomeOrder()
+    {
+        $pdo = Database::getPDO();
+
+       $sql = "
+            UPDATE `category`
+            SET
+            `home_order` = 0
+       ";
+
+       // préparer la requête
+       $statement = $pdo->prepare($sql);
+
+       // exécution de la requête avec les valeurs de l'objet courant $this
+       $success = $statement->execute();
 
        return $success; 
     }

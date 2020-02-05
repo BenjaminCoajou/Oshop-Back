@@ -9,24 +9,24 @@ class CategoryController extends CoreController{
     // Page liste catégories
     public function list()
     {
-        $this->chechAutorization(['admin', 'catalog-manager']);
-
+       
         $categoryList = Category::findAll();
 
-        $this->show('category/list',['categoryList' => $categoryList]);
+        $this->show('category/list',[
+            'categoryList' => $categoryList]
+            );
     }
 
     // Page ajout catégories
     public function add()
     {
-        $this->chechAutorization(['admin', 'catalog-manager']);
+    
         $this->show('category/add');
     }
         
     // Page update catégories
     public function update($categoryId)
     {
-        $this->chechAutorization(['admin', 'catalog-manager']);
 
         $category = Category::find($categoryId);
         $this->show('category/update', ["categoryAdd" => $category]);
@@ -35,7 +35,6 @@ class CategoryController extends CoreController{
     // Récupération des données envoyées par le formulaire en post
     public function addPost()
     {
-        $this->chechAutorization(['admin', 'catalog-manager']);
 
         global $router;
         // Récupère les valeurs que si elles existent en POST
@@ -74,7 +73,6 @@ class CategoryController extends CoreController{
 
     public function updatePost()
     {
-        $this->chechAutorization(['admin', 'catalog-manager']);
 
         global $router;
         // Récupère les valeurs que si elles existent en POST
@@ -104,8 +102,6 @@ class CategoryController extends CoreController{
         // Déclenchement de l'enregistrement
         $success = $post->update();
 
-        $this->chechAutorization(['admin', 'catalog-manager']);
-
         if($success) {
             // Redirection vers la page liste catégorie
             $redirect = $router->generate('category-update', ['categoryId' => $id]);           
@@ -121,8 +117,7 @@ class CategoryController extends CoreController{
 
     public function delete($categoryId)
     {
-        $this->chechAutorization(['admin', 'catalog-manager']);
-        
+
         global $router;
 
         $category = Category::find($categoryId);

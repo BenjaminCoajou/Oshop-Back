@@ -3,7 +3,8 @@
         <h2>Ajouter une catégorie</h2>
         
         <form action="<?= $router->generate('category-addpost')?>" method="POST" class="mt-5">
-            <div class="form-group">
+        <input type="hidden" name="csrf-token" value="<?= $csrfToken ?>">    
+        <div class="form-group">
                 <label for="name">Nom</label>
                 <input type="text" class="form-control" id="name" name ="name" placeholder="Nom de la catégorie">
             </div>

@@ -22,7 +22,7 @@
                                     <th scope="row"><?=$i+1?></th>
                                     <td><?= $viewVars['category'][$i]->getName() ?></td>
                                     <td class="text-right">
-                                        <a href="" class="btn btn-sm btn-warning">
+                                        <a href="<?= $router->generate('category-update', ['categoryId' => $viewVars['category'][$i]->getId()]) ?>" class="btn btn-sm btn-warning">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </a>
                                         <!-- Example single danger button -->
