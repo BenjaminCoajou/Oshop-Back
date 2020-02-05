@@ -235,3 +235,25 @@ $router->map(
     ],
     'user-updatepost'
 );
+
+// Catégorie de l'acceuil -------- 
+
+$router->map(
+    'GET',
+    '/home-categories/',
+    [
+        'method' => 'homeCategories',
+        'controller' => '\App\Controllers\MainController'
+    ],
+    'main-home-categories'
+);
+
+$router->map(
+    'POST',
+    '/home-categories/',
+    [
+        'method' => 'homeCategoriesPost',
+        'controller' => '\App\Controllers\MainController'
+    ],
+    'main-home-categoriespost'
+);

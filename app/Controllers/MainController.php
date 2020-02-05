@@ -27,6 +27,22 @@ class MainController extends CoreController {
         $this->show('main/home',['category' => $categoryToDisplay, 'product' => $productToDisplay]);
     }
 
+    public function homeCategories()
+    {
+        $categoryList = Category::findAll();
+        $categoryListHomePage = Category::findAllHomepage();
+        $this->show('main/home_categories',[
+            'categoryList' => $categoryList,
+            'categoryListHomePage' => $categoryListHomePage
+        ]);
+    }
+
+    public function homeCategoriesPost()
+    {
+        dump($_POST);
+        exit();
+    }
+
     public function add()
     {
         

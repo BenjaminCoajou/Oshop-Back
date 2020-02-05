@@ -29,7 +29,7 @@
                         <a class="nav-link" href="#">Tags</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sélections Accueil &amp; Footer</a>
+                        <a class="nav-link" href="<?= $router->generate('main-home-categories')?>">Sélections Accueil &amp; Footer</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $router->generate('user-list')?>">Utilisateur</a>
